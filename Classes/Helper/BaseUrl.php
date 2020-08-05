@@ -82,20 +82,25 @@ class BaseUrl
      * @param int $pageId id of a page in rootLine to get baseUrl from
      * @param bool $explicit only use site configuration if it can be determinate explicit. Otherwise you will get base url based on first site configuration
      * @param bool $asString get baseUrl as string or Uri object
-     * @return string absolute string for given relative uri
+     * @return string|Uri absolute URI for given relative URI
      */
     public static function prepend(
         string $relativePath,
         string $identifier = null,
         int $pageId = null,
-        bool $explicit = true
-    ): string {
+        bool $explicit = true,
+        bool $asString = true
+    ) {
         $relativeUri = new Uri($relativePath);
         $baseUri = self::get($identifier, $pageId, $explicit, false);
         $absoluteUri = $baseUri
             ->withPath($relativeUri->getPath())
             ->withQuery($relativeUri->getQuery())
             ->withFragment($relativeUri->getFragment());
-        return (string) $absoluteUri;
+
+        if ($asString) {
+            return (string) $absoluteUri;
+        }
+        return $absoluteUri;
     }
 }
