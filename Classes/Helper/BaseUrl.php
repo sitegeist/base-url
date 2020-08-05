@@ -12,9 +12,11 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 /**
  * Is used to get base URL in scripts where no FE or BE context is avilable like commands or tasks
  *
+ * It determinants the base URL from site configurations with baseVariants considered
+ *
  * Examples:
  * BaseUrl::get(); => https://example.com/
- * BaseUrl::prepend('home.html') => https://example.com/home.html
+ * BaseUrl::prepend('home.html'); => https://example.com/home.html
  *
  */
 class BaseUrl
@@ -31,7 +33,7 @@ class BaseUrl
      * @param bool $explicit only use site configuration if it can be determinate explicit. Otherwise you will get base url based on first site configuration
      * @param bool $asString get baseUrl as string or Uri object
      *
-     * @return string|Uri
+     * @return string|Uri base url from site configuration
      * @throws NoSiteFoundException
      * @throws SiteNotExplicit
      */
