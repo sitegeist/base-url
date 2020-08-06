@@ -67,17 +67,13 @@ class BaseUrl
             return null;
         }
 
-        if ($asString) {
-            return (string) $site->getBase();
-        }
-
-        return $site->getBase();
+        return $asString ? (string) $site->getBase() : $site->getBase();
     }
 
     /**
      * Builds an absolute url for a relative url path
      *
-     * we got your back: $relativePath could contain an absolute url or an unnecessary leading slash
+     * we (TYPO3\CMS\Core\Http\Uri) got your back: $relativePath could contain an absolute url or an unnecessary leading slash
      *
      * @param string $relativePath URL path to build absolute path for
      * @param string $identifier site configuration identifier to get baseUrl from
@@ -100,9 +96,6 @@ class BaseUrl
             ->withQuery($relativeUri->getQuery())
             ->withFragment($relativeUri->getFragment());
 
-        if ($asString) {
-            return (string) $absoluteUri;
-        }
-        return $absoluteUri;
+        return $asString ? (string) $absoluteUri : $absoluteUri;
     }
 }
