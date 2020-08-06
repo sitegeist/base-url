@@ -76,6 +76,7 @@ class BaseUrl
      * we (TYPO3\CMS\Core\Http\Uri) got your back: $relativePath could contain an absolute url or an unnecessary leading slash
      *
      * @param string $relativePath URL path to build absolute path for
+     * @param string $baseUrl base URL you want to use regardless of site configurations
      * @param string $identifier site configuration identifier to get baseUrl from
      * @param int $pageId id of a page in rootLine to get baseUrl from
      * @param bool $explicit only use site configuration if it can be determinate explicit. Otherwise you will get base url based on first site configuration
@@ -84,13 +85,14 @@ class BaseUrl
      */
     public static function prepend(
         string $relativePath,
+        string $baseUrl = null,
         string $identifier = null,
         int $pageId = null,
         bool $explicit = true,
         bool $asString = true
     ) {
         $relativeUri = new Uri($relativePath);
-        $baseUri = self::get($identifier, $pageId, $explicit, false);
+        $baseUri = $baseUrl ? new Uri($baseUrl) : self::get($identifier, $pageId, $explicit, false);
         $absoluteUri = $baseUri
             ->withPath($relativeUri->getPath())
             ->withQuery($relativeUri->getQuery())

@@ -32,6 +32,7 @@ class PrependViewhelper extends AbstractViewHelper
     ) {
         return BaseUrl::prepend(
             $arguments['relativePath'] ?? $renderChildrenClosure(),
+            $arguments['baseUrl'],
             $arguments['identifier'],
             $arguments['pageId'],
             $arguments['explicit']
@@ -41,6 +42,7 @@ class PrependViewhelper extends AbstractViewHelper
     public function initializeArguments()
     {
         $this->registerArgument('relativePath', 'string', 'URL path to build absolute path for');
+        $this->registerArgument('baseUrl', 'string', 'base URL you want to use regardless of site configurations');
         $this->registerArgument('identifier', 'string', 'site configuration identifier to get baseUrl from');
         $this->registerArgument('pageId', 'int', 'page in rootLine to get baseUrl from');
         $this->registerArgument('explicit', 'bool', 'use site configuration if it can be determinate explicit. Otherwise you will get base url based on first site configuration', false, true);
