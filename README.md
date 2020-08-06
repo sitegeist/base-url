@@ -24,6 +24,16 @@ use the static functions from `BaseUrl` helper Class
 \Sitegeist\BaseUrl\Helper\BaseUrl::prepend('home.html'); // https://example.com/home.html
 ```
 
+use the viewhelpers in your fluid templates e. g. for mails
+
+```html
+<baseurl:get /> <!-- https://example.com/ -->
+```
+
+```html
+<baseurl:prepend>home.html</baseurl:prepend> <!-- https://example.com/home.html -->
+```
+
 ## Multiple site configuration setups
 
 if your system has more than one site configuration, you can specify which site configuration should be used by:
@@ -33,15 +43,21 @@ if your system has more than one site configuration, you can specify which site 
     BaseUrl::get('mysite');
     BaseUrl::prepend('home.html', 'mysite');
     ```
+
+    ```html
+    <baseurl:get identifier="mysite" />
+    <baseurl:prepend identifier="mysite" />home.html</baseurl:prepend>
+    ```
+
 * specify a pageUid (anywhere in the pageTree)
     ```PHP
     BaseUrl::get(null, 1);
     BaseUrl::prepend('home.html', null, 1);
     ```
-* disable explicit determination (not a good idea, it uses the first site configuration)
-    ```PHP
-    BaseUrl::get(null, null, false);
-    BaseUrl::prepend('home.html', null, null, false);
+
+    ```html
+    <baseurl:get pageId="1" />
+    <baseurl:prepend pageId="1" />home.html</baseurl:prepend>
     ```
 
 # Getting further
