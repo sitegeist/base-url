@@ -93,6 +93,11 @@ class BaseUrl
     ) {
         $relativeUri = new Uri($relativePath);
         $baseUri = $baseUrl ? new Uri($baseUrl) : self::get($identifier, $pageId, $explicit, false);
+
+        if (!$baseUri) {
+            return $relativePath;
+        }
+
         $absoluteUri = $baseUri
             ->withPath($relativeUri->getPath())
             ->withQuery($relativeUri->getQuery())
