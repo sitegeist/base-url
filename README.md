@@ -60,7 +60,7 @@ if your system has more than one site configuration, you can specify which site 
     <baseurl:prepend pageId="1" />home.html</baseurl:prepend>
     ```
 
-# Getting further
+## Getting further
 
 Disable `$asString` return value to get an `TYPO3\CMS\Core\Http\Uri` object. Now you can get or change specific parts of the url.
 
