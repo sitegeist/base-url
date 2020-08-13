@@ -3,9 +3,9 @@ declare(strict_types=1);
 
 namespace Sitegeist\BaseUrl\Helper;
 
-use Sitegeist\BaseUrl\Exception\NoSiteFoundException;
 use Sitegeist\BaseUrl\Exception\SiteNotExplicit;
 use TYPO3\CMS\Core\Http\Uri;
+use TYPO3\CMS\Core\Site\Entity\NullSite;
 use TYPO3\CMS\Core\Site\SiteFinder;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
@@ -34,7 +34,6 @@ class BaseUrl
      * @param bool $asString get baseUrl as string or Uri object
      *
      * @return string|Uri base url from site configuration
-     * @throws NoSiteFoundException
      * @throws SiteNotExplicit
      */
     public static function get(
@@ -56,17 +55,11 @@ class BaseUrl
             if (count($allSites) == 1 || (count($allSites) > 1 && !$explicit)) {
                 $site = array_shift($allSites);
             } elseif (count($allSites) == 0) {
-                throw new NoSiteFoundException('No site found to get base url from', 1596630604);
+                $site = new NullSite();
             } else {
                 throw new SiteNotExplicit('Please specific site by identifier or pageId. Alternative set explicit to false and get the first site configuration', 1596630831);
             }
         }
-
-        if (!$site) {
-            throw new NoSiteFoundException('No site found to get base url from', 1596630604);
-            return null;
-        }
-
         return $asString ? (string) $site->getBase() : $site->getBase();
     }
 
@@ -93,10 +86,6 @@ class BaseUrl
     ) {
         $relativeUri = new Uri($relativePath);
         $baseUri = $baseUrl ? new Uri($baseUrl) : self::get($identifier, $pageId, $explicit, false);
-
-        if (!$baseUri) {
-            return $relativePath;
-        }
 
         $absoluteUri = $baseUri
             ->withPath($relativeUri->getPath())
