@@ -62,7 +62,7 @@ if your system has more than one site configuration, you can specify which site 
 
 ## Getting further
 
-Disable `$asString` return value to get an `TYPO3\CMS\Core\Http\Uri` object. Now you can get or change specific parts of the url.
+Disable `$asString` return type to get an `TYPO3\CMS\Core\Http\Uri` object. Now you can get or change specific parts of the url.
 
 ```PHP
 BaseUrl::get(null, null, true, false);
