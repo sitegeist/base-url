@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace Sitegeist\BaseUrl\Helper;
 
 use Sitegeist\BaseUrl\Exception\SiteNotExplicit;
+use TYPO3\CMS\Core\Core\Environment;
 use TYPO3\CMS\Core\Http\Uri;
 use TYPO3\CMS\Core\Site\Entity\NullSite;
 use TYPO3\CMS\Core\Site\SiteFinder;
@@ -84,6 +85,9 @@ class BaseUrl
         bool $explicit = true,
         bool $asString = true
     ) {
+        if (!GeneralUtility::isValidUrl($relativePath)) {
+            $relativePath = ltrim($relativePath, Environment::getPublicPath());
+        }
         $relativeUri = new Uri($relativePath);
         $baseUri = $baseUrl ? new Uri($baseUrl) : self::get($identifier, $pageId, $explicit, false);
 
