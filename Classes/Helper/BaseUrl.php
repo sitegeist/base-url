@@ -88,7 +88,7 @@ class BaseUrl
         $baseUri = $baseUrl ? new Uri($baseUrl) : self::get($identifier, $pageId, $explicit, false);
 
         $absoluteUri = $baseUri
-            ->withPath($relativeUri->getPath())
+            ->withPath($baseUri->getPath() . $relativeUri->getPath())
             ->withQuery($relativeUri->getQuery())
             ->withFragment($relativeUri->getFragment());
 
