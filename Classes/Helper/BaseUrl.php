@@ -85,8 +85,9 @@ class BaseUrl
         bool $explicit = true,
         bool $asString = true
     ) {
-        if (!GeneralUtility::isValidUrl($relativePath)) {
-            $relativePath = ltrim($relativePath, Environment::getPublicPath());
+        $publicPath = Environment::getPublicPath() . '/';
+        if (!GeneralUtility::isValidUrl($relativePath) && strpos($relativePath, $publicPath) === 0) {
+            $relativePath = substr($relativePath, strlen($publicPath));
         }
         $relativeUri = new Uri($relativePath);
         $baseUri = $baseUrl ? new Uri($baseUrl) : self::get($identifier, $pageId, $explicit, false);
