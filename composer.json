@@ -4,7 +4,6 @@
     "license": "GPL-2.0-or-later",
     "description": "Determinates base URL from site configurations for scripts where no FE or BE context is avilable like commands or tasks",
     "keywords": ["typo3", "typo3-extension", "base url", "absolute url"],
-    "version": "1.1.2",
     "authors": [
         {
             "name": "Ulrich Mathes",
