@@ -12,7 +12,7 @@ $EM_CONF['base_url'] = [
     'version' => '1.1.1',
     'constraints' => [
         'depends' => [
-            'typo3' => '9.5.0-9.9.99',
+            'typo3' => '9.5.0-10.9.9',
             'php' => '7.2.0-7.9.99'
         ],
         'conflicts' => [
