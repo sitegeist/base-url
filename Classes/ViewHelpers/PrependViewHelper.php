@@ -21,7 +21,7 @@ use TYPO3Fluid\Fluid\Core\ViewHelper\Traits\CompileWithRenderStatic;
  * {baseurl:prepend(relativePath: 'home.html')}
  *
  */
-class PrependViewhelper extends AbstractViewHelper
+class PrependViewHelper extends AbstractViewHelper
 {
     use CompileWithRenderStatic;
 
