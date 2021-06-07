@@ -19,7 +19,7 @@ use TYPO3Fluid\Fluid\Core\ViewHelper\Traits\CompileWithRenderStatic;
  * <baseurl:get pageId="1" />
  *
  */
-class GetViewhelper extends AbstractViewHelper
+class GetViewHelper extends AbstractViewHelper
 {
     use CompileWithRenderStatic;
 
