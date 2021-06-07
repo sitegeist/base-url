@@ -91,9 +91,11 @@ class BaseUrl
         }
         $relativeUri = new Uri($relativePath);
         $baseUri = $baseUrl ? new Uri($baseUrl) : self::get($identifier, $pageId, $explicit, false);
-
+        if (strpos($relativeUri->getPath(), $baseUri->getPath()) === 0) {
+            $redundantBaseUriPath = true;
+        }
         $absoluteUri = $baseUri
-            ->withPath($baseUri->getPath() . $relativeUri->getPath())
+            ->withPath(($redundantBaseUriPath ? '' : $baseUri->getPath()) . $relativeUri->getPath())
             ->withQuery($relativeUri->getQuery())
             ->withFragment($relativeUri->getFragment());
 
