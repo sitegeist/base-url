@@ -11,7 +11,7 @@ use TYPO3\CMS\Core\Site\SiteFinder;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
- * Is used to get base URL in scripts where no FE or BE context is avilable like commands or tasks
+ * Is used to get base URL in scripts where no FE or BE context is available like commands or tasks
  *
  * It determinants the base URL from site configurations with baseVariants considered
  *

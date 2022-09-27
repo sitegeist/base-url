@@ -2,7 +2,7 @@
     "name": "sitegeist/base-url",
     "type": "typo3-cms-extension",
     "license": "GPL-2.0-or-later",
-    "description": "Determinates base URL from site configurations for scripts where no FE or BE context is avilable like commands or tasks",
+    "description": "Determinates base URL from site configurations for scripts where no FE or BE context is available like commands or tasks",
     "keywords": ["typo3", "typo3-extension", "base url", "absolute url"],
     "authors": [
         {
@@ -11,8 +11,8 @@
         }
     ],
     "require": {
-        "php": ">=7.2.0 <8",
-        "typo3/cms-core": "^9.5 || ^10.4"
+        "php": ">=7.2.0",
+        "typo3/cms-core": "^9.5 || ^10.4 || ^11.5"
     },
     "require-dev": {
         "squizlabs/php_codesniffer": "^3.5",
@@ -25,7 +25,11 @@
     },
     "config": {
         "vendor-dir": ".Build/vendor",
-        "bin-dir": ".Build/bin"
+        "bin-dir": ".Build/bin",
+        "allow-plugins": {
+            "typo3/class-alias-loader": true,
+            "typo3/cms-composer-installers": true
+        }
     },
     "extra": {
         "typo3/cms": {
