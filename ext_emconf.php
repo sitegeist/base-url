@@ -1,7 +1,7 @@
 <?php
 $EM_CONF['base_url'] = [
     'title' => 'Base URL',
-    'description' => 'Determinates base URL from site configurations for scripts where no FE or BE context is avilable like commands or tasks',
+    'description' => 'Determinates base URL from site configurations for scripts where no FE or BE context is available like commands or tasks',
     'category' => 'fe',
     'author' => 'Ulrich Mathes',
     'author_email' => 'mathes@sitegeist.de',

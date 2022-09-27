@@ -9,7 +9,7 @@ use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
 use TYPO3Fluid\Fluid\Core\ViewHelper\Traits\CompileWithRenderStatic;
 
 /**
- * Is used to get base URL in templates where no FE or BE context is avilable like commands or tasks
+ * Is used to get base URL in templates where no FE or BE context is available like commands or tasks
  *
  * It determinants the base URL from site configurations with baseVariants considered
  *

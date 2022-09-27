@@ -1,6 +1,6 @@
 # Base URL for TYPO3 commands and tasks
 
-In in scripts where no FE or BE context is avilable and you want to build URLs its a good idea to get the absolute URL from a site configuration. This extension provides a helper class to get there.
+In in scripts where no FE or BE context is available and you want to build URLs its a good idea to get the absolute URL from a site configuration. This extension provides a helper class to get there.
 
 ## Where to use
 
