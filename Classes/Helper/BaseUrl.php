@@ -5,6 +5,7 @@ namespace Sitegeist\BaseUrl\Helper;
 
 use Sitegeist\BaseUrl\Exception\SiteNotExplicit;
 use TYPO3\CMS\Core\Core\Environment;
+use TYPO3\CMS\Core\Exception\SiteNotFoundException;
 use TYPO3\CMS\Core\Http\Uri;
 use TYPO3\CMS\Core\Site\Entity\NullSite;
 use TYPO3\CMS\Core\Site\SiteFinder;
@@ -29,13 +30,14 @@ class BaseUrl
      * If there is only one site configuration no params are required.
      * If there are more site configurations please provide either $identifier or $pageId.
      *
-     * @param string $identifier site configuration identifier to get baseUrl from
-     * @param int $pageId id of a page in rootLine to get baseUrl from
+     * @param string|null $identifier site configuration identifier to get baseUrl from
+     * @param int|null $pageId id of a page in rootLine to get baseUrl from
      * @param bool $explicit only use site configuration if it can be determinate explicit. Otherwise you will get base url based on first site configuration
      * @param bool $asString get baseUrl as string or Uri object
      *
      * @return string|Uri base url from site configuration
      * @throws SiteNotExplicit
+     * @throws SiteNotFoundException
      */
     public static function get(
         string $identifier = null,
@@ -70,12 +72,13 @@ class BaseUrl
      * we (TYPO3\CMS\Core\Http\Uri) got your back: $relativePath could contain an absolute url or an unnecessary leading slash
      *
      * @param string $relativePath URL path to build absolute path for
-     * @param string $baseUrl base URL you want to use regardless of site configurations
-     * @param string $identifier site configuration identifier to get baseUrl from
-     * @param int $pageId id of a page in rootLine to get baseUrl from
+     * @param string|null $baseUrl base URL you want to use regardless of site configurations
+     * @param string|null $identifier site configuration identifier to get baseUrl from
+     * @param int|null $pageId id of a page in rootLine to get baseUrl from
      * @param bool $explicit only use site configuration if it can be determinate explicit. Otherwise you will get base url based on first site configuration
      * @param bool $asString get baseUrl as string or Uri object
      * @return string|Uri absolute URI for given relative URI
+     * @throws SiteNotExplicit
      */
     public static function prepend(
         string $relativePath,
@@ -85,13 +88,16 @@ class BaseUrl
         bool $explicit = true,
         bool $asString = true
     ) {
+        $redundantBaseUriPath = false;
         $publicPath = Environment::getPublicPath() . '/';
         if (!GeneralUtility::isValidUrl($relativePath) && strpos($relativePath, $publicPath) === 0) {
             $relativePath = substr($relativePath, strlen($publicPath));
         }
         $relativeUri = new Uri($relativePath);
         $baseUri = $baseUrl ? new Uri($baseUrl) : self::get($identifier, $pageId, $explicit, false);
-        $redundantBaseUriPath = (strpos($relativeUri->getPath(), $baseUri->getPath()) === 0);
+        if (strpos($relativeUri->getPath(), $baseUri->getPath()) === 0) {
+            $redundantBaseUriPath = true;
+        }
         $absoluteUri = $baseUri
             ->withPath(($redundantBaseUriPath ? '' : $baseUri->getPath()) . $relativeUri->getPath())
             ->withQuery($relativeUri->getQuery())
